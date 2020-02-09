@@ -10,13 +10,16 @@ public class encounters implements events {
         if (answer == 1) return option1Modifiers;
         return option2Modifiers;
     }
+    public void setName(String nameIn) {
+        nameIn = name;
+    }
     public void setDescription(String descIn) {
         descIn = description;
     }
     public void setOption1Modifiers(int[] modIn) {
         modIn = option1Modifiers;
     }
-    public void setOPtion2Modifiers(int[] modIn) {
+    public void setOption2Modifiers(int[] modIn) {
         modIn = option2Modifiers;
     }
     public void setOption1(String optIn) {

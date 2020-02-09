@@ -1,5 +1,6 @@
 /*
  * gameManager.java
+ * @author two0008
  * 
  * Description: To run and control the game. Control main stats and win conditions.
  * 
@@ -40,19 +41,18 @@ import java.util.Arrays;
          Scanner input = new Scanner(System.in);
          System.out.println("What would would like the first character's name to be?\n>> ");
          String name1 = input.nextLine();
-         character c1 = new character(String name1);
+         character c1 = new character(name1);
          System.out.println("What would would like the second character's name to be?\n>> ");
          String name2 = input.nextLine();
-         character c2 = new character(String name2);
+         character c2 = new character(name2);
          System.out.println("What would would like the third character's name to be?\n>> ");
          String name3 = input.nextLine();
-         character c3 = new character(String name3);
+         character c3 = new character(name3);
          System.out.println("What would would like the fourth character's name to be?\n>> ");
          String name4 = input.nextLine();
-         character c4 = new character(String name4);
+         character c4 = new character(name4);
 
          List<character> party = new ArrayList<>(Arrays.asList(c1, c2, c3, c4));
-         int charactersAlive = party.size();
 
          // INITIALIZATION OF encounters.
          encounters e0 = new encounters();
@@ -108,11 +108,18 @@ import java.util.Arrays;
          int[] e42mod = {0,0,-15,-15,200};
          e4.setOption2Modifiers(e42mod);
 
+         // INITIALIZATION of Conditions
+         conditions c0 = new conditions();
+         conditions c1 = new conditions();
+         conditions c2 = new conditions();
+         conditions c3 = new conditions();
+
+
          List<encounters> encounterList = new ArrayList<>(Arrays.asList(a0, a1, a2, a3, a4));
          
          // CONDITIONS
          boolean WIN_CONDITION = miles >= 10000;
-         boolean LOSE_CONDITION = charactersAlive <= 0;
+         boolean LOSE_CONDITION = party.size() <= 0;
          // Loop
          while (!WIN_CONDITION || !LOSE_CONDITION) {
             // Keeping track of characters alive.
@@ -132,7 +139,12 @@ import java.util.Arrays;
 
             // Reprecusions
             for (int ii = 0; ii < encounterList.size(); ii++) {
-                if (stats[ii] <=0) conditionsList[ii]. // do conditions code...
+                if (stats[ii] <=0) {
+                    for (Character npc : party) {
+                        npc.health -= encounterList[ii].healthModifier;
+                        if (npc.health <= 0) party.remove(ii);
+                    }
+                }
             }
 
          }
